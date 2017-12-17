@@ -15,5 +15,4 @@ def getrequesthash(api,sessionID = None,json1 = None):
     basestring = basestring + ' ' +REQUESTHASH_SECRET
     requesthash = hashlib.sha256(bytes(basestring,encoding="utf-8")).hexdigest()
     return requesthash
-#其实我根本不懂c#，也不会反编译 上面都是我编的
 

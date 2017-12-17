@@ -1,12 +1,14 @@
-#import requests
+# import requests
 import collections
 import json
 import urllib3
-from str import  *
+from str import *
 from requesthash import *
-urllib3.disable_warnings()#方便抓包
 
-def get5star(X_STAR_SESSION_ID,goalnum,firstflag = 1):
+urllib3.disable_warnings()  # 方便抓包
+
+
+def get5star(X_STAR_SESSION_ID, goalnum, firstflag=1):
     api1 = 'player/gacha/draw'
     payload1 = '{"gachaId":1,"drawType":3,"stepCode":0,"reDraw":true}'
     payload2 = '{"gachaId":1,"drawType":3,"stepCode":4,"reDraw":false}'
@@ -14,7 +16,7 @@ def get5star(X_STAR_SESSION_ID,goalnum,firstflag = 1):
     urhttp = urllib3.PoolManager()
     star5num = 0
     while star5num < goalnum:
-        if firstflag == 1 :#第一次无限十连请求值有所不同，检测选择
+        if firstflag == 1:  # 第一次无限十连请求值有所不同，检测选择
             payloadc = payload1
         else:
             payloadc = payload2
@@ -31,10 +33,10 @@ def get5star(X_STAR_SESSION_ID,goalnum,firstflag = 1):
              ('Connection', 'Keep-Alive'),
              ('Accept-Encoding', 'gzip')])
         star5num = 0
-        #req = requests.session()
-        #a = req.post(url1,headers = header,data =payload1 ,verify=False).json() #速度有点慢
-        a = urhttp.request('post',api_host+api1,headers=header,body=payloadc)
+        # req = requests.session()
+        # a = req.post(url1,headers = header,data =payload1 ,verify=False).json() #速度有点慢
         try:
+            a = urhttp.request('post', api_host + api1, headers=header, body=payloadc,retries = 10)
             a = json.loads(a.data.decode('utf-8'))
         except:
             print("网络故障，或服务器炸了")

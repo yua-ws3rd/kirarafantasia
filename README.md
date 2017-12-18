@@ -1,2 +1,2 @@
 # kirarafantasia
-kirarafantasia的一些研究（顺便学习python
+为了学习python的练习项目
